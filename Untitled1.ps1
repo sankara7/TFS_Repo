@@ -1,1 +1,0 @@
-﻿Invoke-RestMethod -Uri https://login.microsoftonline.com/9c5281f9-59ce-4883-ba72-6b44ab5a17e6/oauth2/token?api-version=1.0 -Method Post -Body @{"grant_type" = "client_credentials"; "resource" = "https://management.core.windows.net/"; "client_id" = "686ff6db-33d8-4e07-b9c1-0747867aa1ea"; "client_secret" = "4q7OjNXXgYNvvmktkzDoFkZw5r1fLGurAK1L151GTK0=" }
