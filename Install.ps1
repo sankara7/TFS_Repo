@@ -8,7 +8,7 @@ $WebClient.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-
 }
 
 # Below block will download the installation paramater setup file from Github
-if (!(Test-Path C:\param.iss)) {
+if (!(Test-Path C:\setup.iss)) {
 $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://raw.githubusercontent.com/sankara7/TFS_Repo/master/setup.iss","C:\setup.iss")
 }
