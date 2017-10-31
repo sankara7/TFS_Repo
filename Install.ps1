@@ -27,7 +27,9 @@ function install
 {
 try
 {
-Start-Process "C:\ManageEngine64.exe" -ArgumentList "/s /a /s /sms /f1c:\set.iss" -Wait -NoNewWindow
+$cmd=" Start /wait C:\ManageEngine64.exe /s /a /s /sms /f1c:\temp\set.iss"
+cmd.exe /c $cmd
+#Start-Process "C:\ManageEngine64.exe" -ArgumentList "/s /a /s /sms /f1c:\set.iss" -Wait -NoNewWindow
 }
 catch
 {
