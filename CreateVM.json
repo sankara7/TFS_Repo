@@ -131,7 +131,7 @@
                     "fileUris": [
                         "[concat(parameters('_artifactsLocation'), '/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
                     ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy RemoteSigned -File ', variables('scriptFileName'))]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'))]"
                 }
             }
         }
