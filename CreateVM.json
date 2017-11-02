@@ -22,7 +22,7 @@
   "variables": {
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks','myVNet')]", 
     "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]", 
-    "vmName": "myVM",
+    "vmName": "myVM1",
     "scriptFolder": ".",
     "scriptFileName": "Install.ps1",
   },
@@ -79,7 +79,7 @@
     {
       "apiVersion": "2016-04-30-preview",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "myVM",
+      "name": "myVM1",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces/', 'myNic')]"
@@ -87,7 +87,7 @@
       "properties": {
         "hardwareProfile": { "vmSize": "Standard_DS1" },
         "osProfile": {
-          "computerName": "myVM",
+          "computerName": "myVM1",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -120,7 +120,7 @@
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "myVM"
+                "myVM1"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
