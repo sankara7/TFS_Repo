@@ -14,8 +14,9 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/sankara7/TFS_Repo/mas
 }
 
 # Below command will start the installation process of ManageEngine application manager in slient mode using param.iss paramter file
+Set-ExecutionPolicy Unrestricted -Force
+Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss' -Wait
 
-Start-Process "c:\ManageEngine.exe" -ArgumentList "/s /a /s /sms /f1c:\setup.iss" -Wait -NoNewWindow
 
 
 
