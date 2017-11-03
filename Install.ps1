@@ -2,21 +2,21 @@ Set-ExecutionPolicy Unrestricted -Force
 try
 {
 # Below block will downloaded ManageEngine installer from official site into tmp path if not downloaded already
-Write-Host "download exe started" | out-file c:/log.txt -append
+"download exe started" | out-file c:/log.txt -append
 Start-Job -Name job1 -ScriptBlock {
 if (!(Test-Path c:\ManageEngine.exe)) {
 
-$WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine.exe")
+$WebClient1 = New-Object System.Net.WebClient
+$WebClient1.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine.exe")
 
 }
 }
 Wait-Job -Name job1
 Receive-Job -Name job1 | out-file c:/log.txt -append 
-Write-Host "download exe completed" | out-file c:/log.txt -append
+"download exe completed" | out-file c:/log.txt -append
 
 # Below block will download the installation paramater setup file from Github
-Write-Host "download param started" | out-file c:/log.txt -append
+"download param started" | out-file c:/log.txt -append
 Start-Job -Name job2 -ScriptBlock {
 if (!(Test-Path C:\setup.iss)) {
 $WebClient = New-Object System.Net.WebClient
@@ -25,7 +25,7 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/sankara7/TFS_Repo/mas
 }
 Wait-Job -Name job2
 Receive-Job -Name job2 | out-file c:/log.txt -append 
-Write-Host "download param completed" | out-file c:/log.txt -append
+"download param completed" | out-file c:/log.txt -append
 }
 Catch
 {
@@ -37,13 +37,13 @@ $Time=Get-Date
 
 try
 {
-Write-Host "install started" | out-file c:/log.txt -append
+"install started" | out-file c:/log.txt -append
 Start-Job -Name job3 -ScriptBlock {
 Set-ExecutionPolicy Unrestricted -Force
 Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss' -Wait
 Wait-Job -Name job3
 Receive-Job -Name job3 | out-file c:/log.txt -append 
-Write-Host "instal completed" | out-file c:/log.txt -append
+"instal completed" | out-file c:/log.txt -append
 }
 
 }
