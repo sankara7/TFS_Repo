@@ -21,7 +21,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/installAPM.ps1"
           ],
-          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', installAPM.ps1)]"
+          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File installAPM.ps1"
         }
       }
     }
