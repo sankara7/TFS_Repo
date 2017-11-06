@@ -8,14 +8,14 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Compute/extensions",
-      "name": "installAPM",
       "apiVersion": "2015-06-15",
-      "location": "[resourceGroup().location]",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "installAPM",
+       "location": "[resourceGroup().location]",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.8",
+        "typeHandlerVersion": "1.9",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
