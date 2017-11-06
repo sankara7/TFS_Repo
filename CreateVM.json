@@ -3,11 +3,29 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": { "type": "string" },
-    "adminPassword": { "type": "securestring" }
-  },
+    "adminPassword": { "type": "securestring" },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+      },
+      "defaultValue": "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch"
+    },
+  "_artifactsLocationSasToken": {
+    "type": "securestring",
+    "metadata": {
+      "description": "The sasToken required to access _artifactsLocation."
+    },
+    "defaultValue": ""
+  }
+},
   "variables": {
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks','myVNet')]", 
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]", 
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/mySubnet')]",
+    "vmName": "myVM1",
+    "scriptFolder": ".",
+    "scriptFileName": "Install.ps1",
+    "installAPMTemplateurl": "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/installAPM.json"
   },
   "resources": [
     {
@@ -94,7 +112,49 @@
             }
           ]
         }
+      },
+      "resources": [
+        {
+            "type": "extensions",
+            "name": "CustomScriptExtension",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "dependsOn": ["myVM1"],       
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.8",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "[concat(parameters('_artifactsLocation'), '/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
+                    ],
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'))]"
+                }
+            }
+        },
+        {
+          "type": "Microsoft.Resources/deployments",
+          "name": "installAPM",
+          "apiVersion": "2015-01-01",
+          "dependsOn": [
+            "myVM1",
+            "CustomScriptExtension"
+          ],
+          "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+              "uri": "[variables('installAPMTemplateurl')]",
+              "contentVersion": "1.0.0.0"
+            },
+            "parameters": {
+              "vmName": {
+                "value": "[variables('vmName')]"
+              }
+            }
+          }
       }
+    ]
     }
   ]
 }
