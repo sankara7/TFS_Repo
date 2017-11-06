@@ -9,7 +9,7 @@
   "resources": [
     {
       "apiVersion": "2015-06-15",
-      "type": "extensions",
+      "type": "Microsoft.Compute/extensions",
       "name": "installAPM",
        "location": "[resourceGroup().location]",
       "properties": {
