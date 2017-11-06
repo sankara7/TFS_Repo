@@ -9,7 +9,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": ["myVM1",'/installAPM')],
+      "name": ["myVM1","/installAPM")],
       "apiVersion": "2015-06-15",
        "location": "[resourceGroup().location]",
       "properties": {
