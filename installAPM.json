@@ -9,7 +9,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/configuremongo')]",
+      "name": "[concat(parameters('vmName'),'/installAPM')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -19,9 +19,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-dependency-between-scripts-using-extensions/mongo-install-ubuntu.sh"
+            "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/installAPM.ps1"
           ],
-          "commandToExecute": "sh mongo-install-ubuntu.sh"
+          "commandToExecute": "installAPM.ps1"
         }
       }
     }
