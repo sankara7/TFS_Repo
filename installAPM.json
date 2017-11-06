@@ -8,20 +8,20 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/installAPM')]",
-      "apiVersion": "2015-05-01-preview",
+      "type": "extensions",
+      "name": "installAPM",
+      "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": {
-        "publisher": "Microsoft.Azure.Extensions",
-        "type": "CustomScript",
-        "typeHandlerVersion": "2.0",
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.8",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
             "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/installAPM.ps1"
           ],
-          "commandToExecute": "installAPM.ps1"
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', installAPM.ps1)]"
         }
       }
     }
