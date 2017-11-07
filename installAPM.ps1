@@ -4,7 +4,7 @@ try
 "install started" | out-file c:/log.txt -append
 Start-Job -Name ijob -ScriptBlock {
 Set-ExecutionPolicy Unrestricted -Force
-Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss' -Wait
+Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss' -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
 Wait-Job -Name ijob
 Receive-Job -Name ijob | out-file c:/log.txt -append 
 "instal completed" | out-file c:/log.txt -append
