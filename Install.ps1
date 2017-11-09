@@ -40,9 +40,9 @@ try
 "install started" | out-file c:/log.txt -append
 Start-Job -Name ijob -ScriptBlock {
 Set-ExecutionPolicy Unrestricted -Force
+"Sleep time started" | out-file c:/log.txt -append
 "Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait" | out-file c:/installAPM.ps1 -append
 Invoke-Command -Command {c:\installAPM.ps1}
-"Sleep time started" | out-file c:/log.txt -append
 Start-Sleep -s 120
 "Sleep time ended" | out-file c:/log.txt -append
 Wait-Job -Name ijob
