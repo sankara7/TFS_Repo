@@ -8,7 +8,7 @@ if (!(Test-Path c:\ManageEngine.exe)) {
 
 $WebClient1 = New-Object System.Net.WebClient
 $WebClient1.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine.exe")
-
+Start-Sleep -s 90
 }
 }
 Wait-Job -Name job1
@@ -42,6 +42,7 @@ Start-Job -Name ijob -ScriptBlock {
 Set-ExecutionPolicy Unrestricted -Force
 "Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait" | out-file c:/installAPM.ps1 -append
 Invoke-Command -Command {c:\installAPM.ps1}
+Start-Sleep -s 120
 Wait-Job -Name ijob
 Receive-Job -Name ijob | out-file c:/log.txt -append 
 "instal completed" | out-file c:/log.txt -append
