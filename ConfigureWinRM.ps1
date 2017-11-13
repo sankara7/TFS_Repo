@@ -92,8 +92,15 @@ $cred = New-Object -TypeName pscredential –ArgumentList $username, $pass
 
 
 "install started" | out-file c:/log.txt -append
-Invoke-Command -SessionOption $soptions -ComputerName myvmdnslab1.southindia.cloudapp.azure.com -Command {Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait} 
+Invoke-Command -SessionOption $soptions -ComputerName myvmdnslab1.southindia.cloudapp.azure.com -Command {Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait}  -AsJob
+$j = Get-Job
+$j | out-file  c:/log.txt -append
+$j | Format-List -Property *
+$j | out-file  c:/log.txt -append
+$results = $j | Receive-Job
+$results | out-file  c:/log.txt -append
 "install completed" | out-file  c:/log.txt -append
+
 }
 catch
 {
