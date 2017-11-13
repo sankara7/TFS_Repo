@@ -1,8 +1,15 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-  "adminUserName": { "value": "azureuser" },
-    "adminPassword": { "value": "Azure12345678" }
-  }
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {        
+        "adminUsername": {
+            "value": "user123"
+        },
+        "adminPassword": {
+            "value": "testpass@123"
+        },
+        "dnsLabelPrefix": {
+            "value": "myvmdnslab1"
+        }
+   }
 }
