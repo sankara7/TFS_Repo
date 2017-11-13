@@ -134,27 +134,14 @@ $Time=Get-Date
 try
 {
 "install started" | out-file c:/log.txt -append
-Start-Job -Name ijob -ScriptBlock {
-"Enter ijob block" | out-file c:/log.txt -append
-Set-ExecutionPolicy Unrestricted -Force
-"Policy set" | out-file c:/log.txt -append
-"creating ps file" | out-file c:/log.txt -append
-"Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait" | out-file c:/installAPM.ps1 -append
-"Executing ps file" | out-file c:/log.txt -append
-Invoke-Command -Command {c:\installAPM.ps1}
-"Sleep time started" | out-file c:/log.txt -append
-Start-Sleep -s 120
-"Sleep time ended" | out-file c:/log.txt -append
-Wait-Job -Name ijob
-$results = Receive-Job -Name ijob | out-file c:/log.txt -append 
-"instal completed" | out-file c:/log.txt -append
-} -Credential $cred
-$results | out-file c:/log.txt -append
-
+Invoke-Command -Command {Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait} -Credential $cred
 }
-Catch
+catch
 {
-$ErrorMessage = $_.Exception.Message
-$Time=Get-Date
+    $ErrorMessage = $_.Exception.Message
+    $Time=Get-Date
 "This script failed at $Time and error message was $ErrorMessage" | out-file c:\log.txt -append
 }
+write-host "invoke installation completed" | out-file c:\log.txt -append
+
+
