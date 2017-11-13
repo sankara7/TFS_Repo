@@ -85,13 +85,13 @@ Add-FirewallException -port $winrmHttpsPort
 $winrmPort = '5986'
 
 # Get the credentials of the machine
-$username = "user123"
-$pass = ConvertTo-SecureString "testpass@123" -AsPlainText –Force
-$cred = New-Object -TypeName pscredential –ArgumentList $username, $pass
+$username = "MyWindowsVM\user123"
+$pass = ConvertTo-SecureString "testpass@123" -AsPlainText â€“Force
+$cred = New-Object -TypeName pscredential â€“ArgumentList $username, $pass
 
 # Connect to the machine
-$soptions = New-PSSessionOption -SkipCACheck
-Enter-PSSession -ComputerName $hostName -Port $winrmPort -Credential $cred -SessionOption $soptions -UseSSL
+# $soptions = New-PSSessionOption -SkipCACheck
+# Enter-PSSession -ComputerName $hostName -Port $winrmPort -Credential $cred -SessionOption $soptions -UseSSL
 
 Set-ExecutionPolicy Unrestricted -Force
 try
@@ -146,9 +146,10 @@ Invoke-Command -Command {c:\installAPM.ps1}
 Start-Sleep -s 120
 "Sleep time ended" | out-file c:/log.txt -append
 Wait-Job -Name ijob
-Receive-Job -Name ijob | out-file c:/log.txt -append 
+$results = Receive-Job -Name ijob | out-file c:/log.txt -append 
 "instal completed" | out-file c:/log.txt -append
-}
+} -Credential $cred
+$results | out-file c:/log.txt -append
 
 }
 Catch
