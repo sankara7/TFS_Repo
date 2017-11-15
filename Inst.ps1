@@ -1,18 +1,62 @@
-﻿Configuration Install 
-{ 
-    try
+log = "c:\log.txt"
+# Get the credentials of the machine
+$username = "user123"
+$pass = ConvertTo-SecureString "testpass@123" -AsPlainText –Force
+"$env:USERDOMAIN\$username" | out-file c:/log.txt -append
+$cred = New-Object System.Management.Automation.PSCredential("$env:USERDOMAIN\$username", $pass)
+
+function download
+{
+try
+{
+# Below block will downloaded ManageEngine installer from official site into tmp path if not downloaded already
+if (!(Test-Path c:\ManageEngine64.exe)) {
+
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine64.exe")
+Add-Content -Path $Log -value "ManageEngine Downloaded"
+}
+
+# Below block will download the installation paramater setup file from Github
+if (!(Test-Path C:\set.iss)) {
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://raw.githubusercontent.com/sankara7/TFS_Repo/master/set.iss","C:\set.iss")
+Add-Content -Path $Log -value "Setup file Downloaded"
+}
+}
+catch
 {
 
-"install started" | out-file c:/log.txt -append
-Invoke-Command -Command {Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log.txt'  -Wait}
-"install completed" | out-file  c:/log.txt -append
+}
+}
+function install
+{
+try
+{
+Set-ExecutionPolicy Unrestricted -Force
+"Policy set" | out-file c:/log.txt -append
+"creating ps file" | out-file c:/log.txt -append
+"Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log1.txt'  -Wait" | out-file c:/installAPM.ps1 -append
+"Executing ps file" | out-file c:/log.txt -append
+Invoke-Command -Credential $cred -ComputerName $env:COMPUTERNAME -Command {c:\installAPM.ps1}
+"instal completed" | out-file c:/log.txt -append
 
 }
 catch
 {
-    $ErrorMessage = $_.Exception.Message
-    $Time=Get-Date
-"This script failed at $Time and error message was $ErrorMessage" | out-file c:\log.txt -append
-} 
+}
+}
 
-} 
+Add-Content -Path $Log -value "Downloads Started"
+$status = download
+if($?)
+{
+Add-Content -Path $Log -value "Install Started"
+install
+Add-Content -Path $Log -value "Install Finshed"
+}
+
+
+
+
+
