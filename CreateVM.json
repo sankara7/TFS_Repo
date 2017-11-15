@@ -183,11 +183,9 @@
                     "forceUpdateTag": "3.0",
                     "settings": {
                         "fileUris": [ 
-                                    "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/ConfigureWinRM.ps1",
-                                    "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vm-winrm-windows/makecert.exe",
-                                    "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vm-winrm-windows/winrmconf.cmd"
-                                ],
-                        "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ConfigureWinRM.ps1 ',variables('hostDNSNameScriptArgument'))]"
+                                    "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/Install.ps1"
+                                 ],
+                        "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file Install.ps1')]"
                     }
                 }
                 }
