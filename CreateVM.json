@@ -180,7 +180,7 @@
                         "type": "CustomScriptExtension",
                     "typeHandlerVersion": "1.4",
                     "autoUpgradeMinorVersion": true,
-                    "forceUpdateTag": "3.0",
+                    "forceUpdateTag": "4.0",
                     "settings": {
                         "fileUris": [ 
                                     "https://raw.githubusercontent.com/sankara7/TFS_Repo/ARM_Branch/Install.ps1"
