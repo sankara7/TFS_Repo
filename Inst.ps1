@@ -35,9 +35,9 @@ try
 Set-ExecutionPolicy Unrestricted -Force
 "Policy set" | out-file c:/log.txt -append
 "creating ps file" | out-file c:/log.txt -append
-"Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log1.txt'  -Wait" | out-file c:/installAPM.ps1 -append
+Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\setup.iss /f2c:\log1.txt' -Wait -Credential $cred
 "Executing ps file" | out-file c:/log.txt -append
-Invoke-Command -Credential $cred -ComputerName myVM -Command {c:\installAPM.ps1}
+#Invoke-Command -Credential $cred -ComputerName myVM -Command {c:\installAPM.ps1}
 "instal completed" | out-file c:/log.txt -append
 
 }
