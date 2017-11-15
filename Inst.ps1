@@ -1,4 +1,4 @@
-log = "c:\log.txt"
+$log = "c:\log.txt"
 # Get the credentials of the machine
 $username = "user123"
 $pass = ConvertTo-SecureString "testpass@123" -AsPlainText –Force
