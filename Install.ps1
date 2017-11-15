@@ -1,8 +1,9 @@
+"Script started" | out-file c:/log.txt -append
 # Get the credentials of the machine
 $username = "user123"
 $pass = ConvertTo-SecureString "testpass@123" -AsPlainText –Force
-$cred = New-Object System.Management.Automation.PSCredential("$env:USERDOMAIN\$username", $pass)
 "$env:USERDOMAIN\$username" | out-file c:/log.txt -append
+$cred = New-Object System.Management.Automation.PSCredential("$env:USERDOMAIN\$username", $pass)
 Set-ExecutionPolicy Unrestricted -Force
 try
 {
@@ -11,7 +12,6 @@ try
 "download exe started" | out-file c:/log.txt -append
 Start-Job -Name job1 -ScriptBlock {
 if (!(Test-Path c:\ManageEngine.exe)) {
--Credential $credential -ComputerName $env:COMPUTERNAME 
 $WebClient1 = New-Object System.Net.WebClient
 $WebClient1.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine.exe")
 Start-Sleep -s 90
