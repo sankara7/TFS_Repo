@@ -9,10 +9,10 @@ function download
 try
 {
 # Below block will downloaded ManageEngine installer from official site into tmp path if not downloaded already
-if (!(Test-Path c:\ManageEngine64.exe)) {
+if (!(Test-Path c:\ManageEngine.exe)) {
 
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine64.exe")
+$WebClient.DownloadFile("https://www.manageengine.com/cgi-bin/download_exe?id=1-918","C:\ManageEngine.exe")
 Add-Content -Path $Log -value "ManageEngine Downloaded"
 }
 
