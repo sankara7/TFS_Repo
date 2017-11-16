@@ -37,8 +37,9 @@ Set-ExecutionPolicy Unrestricted -Force
 "creating ps file" | out-file c:/log.txt -append
 #Start-Process c:\ManageEngine.exe -ArgumentList '/quiet /a /s /sms /f1c:\foo.iss /f2c:\log1.txt' -Wait -Verb runas
 "Executing pse file" | out-file c:/log.txt -append
-Enable-PSRemoting -Force
-Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -FilePath C:\InstallAPM.ps1
+Start-Process -FilePath c:\jenkins.msi -ArgumentList "/quiet"
+#Enable-PSRemoting -Force
+#Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -FilePath C:\InstallAPM.ps1
 #Invoke-Command -Credential $cred -ComputerName myVM -Command {c:\InstallAPM.ps1}
 "instal completed" | out-file c:/log.txt -append
 }
