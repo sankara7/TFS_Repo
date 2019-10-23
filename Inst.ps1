@@ -1,3 +1,4 @@
+# Get the credentials of the machine test
 $log = "c:\log.txt"
 # Get the credentials of the machine
 $username = "$env:COMPUTERNAME\user123"
